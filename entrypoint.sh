@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
 
-source "/etc/profile.d/rvm.sh"
+source /etc/profile.d/rvm.sh
 
-exec "$@"
+exec /bin/tini -- /usr/local/bin/jenkins.sh

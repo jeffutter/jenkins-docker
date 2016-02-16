@@ -17,5 +17,5 @@ RUN bash -c "source /etc/profile.d/rvm.sh && rvm install 2.2 && gem install bund
 RUN usermod -aG rvm jenkins
 USER jenkins
 
-COPY entrypoint.sh /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
