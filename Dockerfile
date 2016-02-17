@@ -3,6 +3,12 @@ MAINTAINER Jeffery Utter "jeff.utter@firespring.com"
 
 USER root
 
+# Install uuid
+RUN apt-get update \
+    && apt-get install -y uuid \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 # Install Docker
 RUN curl -sSL https://get.docker.com/ | sh
 RUN usermod -aG docker jenkins
