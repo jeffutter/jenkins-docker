@@ -14,7 +14,7 @@ RUN curl -sSL https://get.docker.com/ | sh
 RUN usermod -aG docker jenkins
 
 # Install Docker Compose
-RUN curl -sSL https://github.com/docker/compose/releases/download/1.8.0/docker-compose-`/bin/uname -s`-`/bin/uname -m` > /usr/local/bin/docker-compose && /bin/chmod +x /usr/local/bin/docker-compose
+RUN curl -sSL https://github.com/docker/compose/releases/download/1.8.1/docker-compose-`/bin/uname -s`-`/bin/uname -m` > /usr/local/bin/docker-compose && /bin/chmod +x /usr/local/bin/docker-compose
 
 RUN curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip" \
     && unzip awscli-bundle.zip \
