@@ -22,7 +22,12 @@ RUN curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.
 
 # Install rvm/ruby/bundler
 RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 && curl -sSL https://get.rvm.io | bash
-RUN bash -c "source /etc/profile.d/rvm.sh && rvm install 2.2 && gem install bundler"
+RUN bash -c " \
+        source /etc/profile.d/rvm.sh \
+        && rvm install 2.2 \
+        && gem install bundler \
+        && bundle config build.nokogiri --use-system-libraries
+        "
 
 RUN usermod -aG rvm jenkins
 USER jenkins
