@@ -26,7 +26,7 @@ RUN bash -c " \
         source /etc/profile.d/rvm.sh \
         && rvm install 2.2 \
         && gem install bundler \
-        && bundle config build.nokogiri --use-system-librarie \
+        && bundle config build.nokogiri --use-system-libraries \
         "
 
 RUN usermod -aG rvm jenkins
