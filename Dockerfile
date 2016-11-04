@@ -5,7 +5,7 @@ USER root
 
 # Install uuid
 RUN apt-get update \
-    && apt-get install -y uuid libmysqlclient-dev libxml2-dev libxslt1-dev \
+    && apt-get install -y uuid libmysqlclient-dev libxml2-dev libxslt1-dev supervisor \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -33,5 +33,7 @@ RUN usermod -aG rvm jenkins
 USER jenkins
 WORKDIR /var/jenkins_home
 
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+COPY start_jenkins.sh /usr/local/bin/start_jenkins.sh
+COPY start_docker.sh /usr/local/bin/start_docker.sh
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
