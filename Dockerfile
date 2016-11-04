@@ -5,7 +5,7 @@ USER root
 
 # Install uuid
 RUN apt-get update \
-    && apt-get install -y uuid libmysqlclient-dev \
+    && apt-get install -y uuid libmysqlclient-dev libxml2-dev libxslt1-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
