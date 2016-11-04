@@ -3,6 +3,11 @@ MAINTAINER Jeffery Utter "jeff.utter@firespring.com"
 
 USER root
 
+ENV JENKINS_HOME /var/lib/jenkins
+RUN mkdir -p /var/lib/jenkins \
+    && usermod -d /var/lib/jenkins jenkins \
+    && chown -R jenkins:jenkins /var/lib/jenkins
+
 # Install uuid
 RUN apt-get update \
     && apt-get install -y uuid libmysqlclient-dev libxml2-dev libxslt1-dev \
@@ -11,7 +16,6 @@ RUN apt-get update \
 
 # Install Docker
 RUN curl -sSL https://get.docker.com/ | sh
-RUN usermod -aG docker jenkins
 
 # Install Docker Compose
 RUN curl -sSL https://github.com/docker/compose/releases/download/1.8.1/docker-compose-`/bin/uname -s`-`/bin/uname -m` > /usr/local/bin/docker-compose && /bin/chmod +x /usr/local/bin/docker-compose
@@ -29,9 +33,10 @@ RUN bash -c " \
         && bundle config build.nokogiri --use-system-libraries \
         "
 
-RUN usermod -aG rvm jenkins
+RUN usermod -aG rvm jenkins \
+    && usermod -aG docker jenkins
 USER jenkins
-WORKDIR /var/jenkins_home
+WORKDIR /var/lib/jenkins
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
