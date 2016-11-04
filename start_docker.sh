@@ -48,4 +48,4 @@ if grep '/proc/sys\s\+\w\+\s\+ro,' /proc/mounts >/dev/null; then
   mount -o remount,rw /proc/sys
 fi
 
-docker daemon
+docker daemon --storage-driver=vfs

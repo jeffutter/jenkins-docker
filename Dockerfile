@@ -30,10 +30,12 @@ RUN bash -c " \
         "
 
 RUN usermod -aG rvm jenkins
-USER jenkins
+USER root
 WORKDIR /var/jenkins_home
+RUN chown -R jenkins:jenkins /var/jenkins_home
 
 COPY start_jenkins.sh /usr/local/bin/start_jenkins.sh
 COPY start_docker.sh /usr/local/bin/start_docker.sh
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+ENTRYPOINT ["/bin/sh", "-c"]
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
