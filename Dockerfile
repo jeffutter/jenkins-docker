@@ -3,16 +3,17 @@ MAINTAINER Jeffery Utter "jeff.utter@firespring.com"
 
 USER root
 
+# Install uuid
+RUN apt-get update \
+    && apt-get install -y uuid libmysqlclient-dev libxml2-dev libxslt1-dev sudo \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 ENV JENKINS_HOME /var/lib/jenkins
 RUN mkdir -p /var/lib/jenkins \
     && usermod -d /var/lib/jenkins jenkins \
-    && chown -R jenkins:jenkins /var/lib/jenkins
-
-# Install uuid
-RUN apt-get update \
-    && apt-get install -y uuid libmysqlclient-dev libxml2-dev libxslt1-dev \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    && chown -R jenkins:jenkins /var/lib/jenkins \
+    && echo "jenkins ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/10_jenkins
 
 # Install Docker
 RUN curl -sSL https://get.docker.com/ | sh
