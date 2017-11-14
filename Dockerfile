@@ -5,7 +5,7 @@ USER root
 
 # Install uuid
 RUN apt-get update \
-    && apt-get install -y uuid libmysqlclient-dev libxml2-dev libxslt1-dev sudo \
+    && apt-get install -y uuid default-libmysqlclient-dev libxml2-dev libxslt1-dev sudo \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -27,7 +27,7 @@ RUN curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.
     && ./awscli-bundle/install -i /usr/local/
 
 # Install rvm/ruby/bundler
-RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 && curl -sSL https://get.rvm.io | bash
+RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB && curl -sSL https://get.rvm.io | bash -s stable
 RUN bash -c " \
         source /etc/profile.d/rvm.sh \
         && rvm install 2.2 \
